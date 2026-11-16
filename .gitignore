@@ -1,0 +1,23 @@
+
+# Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# IDEs
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+
+# VS Code: manter apenas configuracoes pessoais fora do repositorio
+.vscode/
+
+# Ambiente e credenciais
+.env
+.env.*
+!.env.example
+application-local.properties
+
+# Logs
+*.log
