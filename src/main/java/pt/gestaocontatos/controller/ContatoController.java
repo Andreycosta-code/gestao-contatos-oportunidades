@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import pt.gestaocontatos.model.Contato;
 import pt.gestaocontatos.model.TipoContacto;
@@ -25,29 +26,33 @@ public class ContatoController {
         this.contatoService = contatoService;
     }
 
-    
-@GetMapping
-public String listar(
-        @org.springframework.web.bind.annotation.RequestParam(
-                required = false) String nome,
-        Model model) {
+    @GetMapping
+    public String listar(
+            @RequestParam(required = false) String nome,
+            Model model) {
 
-    if (nome != null && !nome.isBlank()) {
-        model.addAttribute("contatos",
-                contatoService.buscarPorNome(nome));
-    } else {
-        model.addAttribute("contatos",
-                contatoService.listarTodos());
+        if (nome != null && !nome.isBlank()) {
+            model.addAttribute(
+                    "contatos",
+                    contatoService.buscarPorNome(nome)
+            );
+        } else {
+            model.addAttribute(
+                    "contatos",
+                    contatoService.listarTodos()
+            );
+        }
+
+        model.addAttribute("nomePesquisa", nome);
+
+        return "contatos/lista";
     }
-
-    model.addAttribute("nomePesquisa", nome);
-    return "contatos/lista";
-}
 
     @GetMapping("/novo")
     public String novo(Model model) {
         model.addAttribute("contato", new Contato());
         model.addAttribute("tiposContacto", TipoContacto.values());
+
         return "contatos/formulario";
     }
 
@@ -68,6 +73,7 @@ public String listar(
         } catch (IllegalArgumentException erro) {
             model.addAttribute("tiposContacto", TipoContacto.values());
             model.addAttribute("erro", erro.getMessage());
+
             return "contatos/formulario";
         }
     }
