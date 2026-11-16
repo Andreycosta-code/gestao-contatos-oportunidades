@@ -25,11 +25,24 @@ public class ContatoController {
         this.contatoService = contatoService;
     }
 
-    @GetMapping
-    public String listar(Model model) {
-        model.addAttribute("contatos", contatoService.listarTodos());
-        return "contatos/lista";
+    
+@GetMapping
+public String listar(
+        @org.springframework.web.bind.annotation.RequestParam(
+                required = false) String nome,
+        Model model) {
+
+    if (nome != null && !nome.isBlank()) {
+        model.addAttribute("contatos",
+                contatoService.buscarPorNome(nome));
+    } else {
+        model.addAttribute("contatos",
+                contatoService.listarTodos());
     }
+
+    model.addAttribute("nomePesquisa", nome);
+    return "contatos/lista";
+}
 
     @GetMapping("/novo")
     public String novo(Model model) {
