@@ -143,3 +143,73 @@ body.alto-contraste .crm-brand {
 }
 
 body.alto-contraste .section-total { color: #ffffff !important; }
+
+/* Alto contraste para as páginas internas do CRM */
+body.alto-contraste .page-intro h2,
+body.alto-contraste .content-panel-heading h3,
+body.alto-contraste .table-primary-text,
+body.alto-contraste .table-secondary-text,
+body.alto-contraste .form-panel .form-label,
+body.alto-contraste .form-section-title h3,
+body.alto-contraste .timeline-heading strong,
+body.alto-contraste .timeline-content p,
+body.alto-contraste .opportunity-context strong,
+body.alto-contraste .empty-state-page h3 {
+    color: #ffffff !important;
+}
+body.alto-contraste .page-intro p,
+body.alto-contraste .content-panel-heading p,
+body.alto-contraste .form-section-title p,
+body.alto-contraste .breadcrumb-line,
+body.alto-contraste .empty-state-page p {
+    color: #ffffff !important;
+}
+body.alto-contraste .content-panel,
+body.alto-contraste .search-form,
+body.alto-contraste .crm-table tbody tr,
+body.alto-contraste .record-count,
+body.alto-contraste .empty-state-page-icon,
+body.alto-contraste .form-section-icon,
+body.alto-contraste .timeline-icon {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border: 1px solid #ffff00 !important;
+}
+body.alto-contraste .crm-table thead th,
+body.alto-contraste .crm-table tbody td,
+body.alto-contraste .form-panel .content-panel-heading,
+body.alto-contraste .form-section,
+body.alto-contraste .form-actions,
+body.alto-contraste .timeline-item:not(:last-child):before {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border-color: #ffff00 !important;
+}
+body.alto-contraste .status-badge,
+body.alto-contraste .priority-badge,
+body.alto-contraste .type-badge {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border: 1px solid #ffff00 !important;
+}
+body.alto-contraste .page-eyebrow,
+body.alto-contraste .breadcrumb-line a,
+body.alto-contraste .content-panel-heading h3 i {
+    color: #00ffff !important;
+}
+body.alto-contraste .crm-body .form-control,
+body.alto-contraste .crm-body .form-select {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border: 2px solid #ffff00 !important;
+}
+body.alto-contraste .crm-body .form-control::placeholder {
+    color: #cccccc !important;
+}
+body.alto-contraste .crm-table tbody tr:hover td {
+    background: #000000 !important;
+}
+body.alto-contraste .input-icon-wrap > i,
+body.alto-contraste .field-error {
+    color: #ffff00 !important;
+}

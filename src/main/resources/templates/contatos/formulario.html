@@ -1,125 +1,30 @@
-
 <!DOCTYPE html>
 <html lang="pt-PT" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Novo contacto | Gestão de Contactos</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-          rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/acessibilidade.css}">
-</head>
-<body class="bg-light">
-
-<header class="bg-dark text-white py-3">
-    <div class="container">
-        <h1 class="h4 mb-0">Gestão de Contactos e Oportunidades</h1>
-
-        <button type="button"
-                id="botao-contraste"
-                class="btn btn-warning"
-                aria-pressed="false">
-            Ativar alto contraste
-        </button>
-
-    </div>
-</header>
-
-<main class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-7">
-
-            <div class="card shadow-sm">
-                <div class="card-body p-4">
-
-                    <h2 class="h4 mb-4">Cadastrar novo contacto</h2>
-
-                    <div th:if="${erro}" class="alert alert-danger"
-                         th:text="${erro}"></div>
-
-                    <form th:action="@{/contatos/salvar}"
-                          th:object="${contato}"
-                          method="post">
-
-                        <input type="hidden"
-                               th:name="${_csrf.parameterName}"
-                               th:value="${_csrf.token}">
-
-                        <div class="mb-3">
-                            <label for="nome" class="form-label">
-                                Nome completo *
-                            </label>
-                            <input type="text" id="nome"
-                                   th:field="*{nome}"
-                                   class="form-control"
-                                   maxlength="100"
-                                   required>
-                            <div class="text-danger small"
-                                 th:errors="*{nome}"></div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="telefone" class="form-label">
-                                Telefone *
-                            </label>
-                            <input type="text" id="telefone"
-                                   th:field="*{telefone}"
-                                   class="form-control"
-                                   maxlength="30"
-                                   required>
-                            <div class="text-danger small"
-                                 th:errors="*{telefone}"></div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="email" class="form-label">
-                                Email
-                            </label>
-                            <input type="email" id="email"
-                                   th:field="*{email}"
-                                   class="form-control"
-                                   maxlength="150">
-                            <div class="text-danger small"
-                                 th:errors="*{email}"></div>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="tipoContacto" class="form-label">
-                                Tipo de contacto *
-                            </label>
-                            <select id="tipoContacto"
-                                    th:field="*{tipoContacto}"
-                                    class="form-select" required>
-                                <option value="">Selecione uma opção</option>
-                                <option th:each="tipo : ${tiposContacto}"
-                                        th:value="${tipo}"
-                                        th:text="${tipo}">
-                                </option>
-                            </select>
-                            <div class="text-danger small"
-                                 th:errors="*{tipoContacto}"></div>
-                        </div>
-
-                        <div class="d-flex gap-2">
-                            <button type="submit" class="btn btn-primary">
-                                Guardar contacto
-                            </button>
-
-                            <a th:href="@{/contatos}"
-                               class="btn btn-outline-secondary">
-                                Cancelar
-                            </a>
-                        </div>
-
-                    </form>
-                </div>
-            </div>
-
-        </div>
-    </div>
+<head th:replace="~{fragments/layout :: head('Novo contacto')}"></head>
+<body class="crm-body">
+<a class="skip-link" href="#conteudo">Saltar para o conteúdo</a>
+<div th:replace="~{fragments/layout :: sidebar('contatos')}"></div>
+<div class="crm-main">
+<header th:replace="~{fragments/layout :: topbar('Novo contacto')}"></header>
+<main id="conteudo" class="crm-content">
+  <div class="breadcrumb-line"><a th:href="@{/contatos}"><i class="bi bi-arrow-left me-1" aria-hidden="true"></i>Voltar aos contactos</a><span>/</span><span>Novo contacto</span></div>
+  <section class="page-intro compact-intro"><div><span class="page-eyebrow">GESTÃO DA REDE DE CONTACTOS</span><h2>Cadastrar novo contacto</h2><p>Preencha os dados para adicionar uma pessoa ou empresa.</p></div></section>
+  <div class="form-layout-narrow">
+    <section class="content-panel form-panel">
+      <div class="content-panel-heading"><div><h3><i class="bi bi-person-vcard me-2" aria-hidden="true"></i>Dados do contacto</h3><p>Os campos assinalados com * são obrigatórios.</p></div></div>
+      <div th:if="${erro}" class="alert alert-danger" role="alert" th:text="${erro}"></div>
+      <form th:action="@{/contatos/salvar}" th:object="${contato}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        <div class="mb-3"><label for="nome" class="form-label">Nome completo *</label><input type="text" id="nome" th:field="*{nome}" class="form-control" maxlength="100" autocomplete="name" required placeholder="Nome do contacto"><div class="field-error" th:errors="*{nome}"></div></div>
+        <div class="row g-3"><div class="col-12 col-md-6 mb-3"><label for="telefone" class="form-label">Telefone *</label><input type="text" id="telefone" th:field="*{telefone}" class="form-control" maxlength="30" autocomplete="tel" required placeholder="Número de telefone"><div class="field-error" th:errors="*{telefone}"></div></div>
+        <div class="col-12 col-md-6 mb-3"><label for="email" class="form-label">Email</label><input type="email" id="email" th:field="*{email}" class="form-control" maxlength="150" autocomplete="email" placeholder="email@exemplo.pt"><div class="field-error" th:errors="*{email}"></div></div></div>
+        <div class="mb-4"><label for="tipoContacto" class="form-label">Tipo de contacto *</label><select id="tipoContacto" th:field="*{tipoContacto}" class="form-select" required><option value="">Selecione uma opção</option><option th:each="tipo : ${tiposContacto}" th:value="${tipo}" th:text="${tipo}"></option></select><div class="field-error" th:errors="*{tipoContacto}"></div></div>
+        <div class="form-actions"><a th:href="@{/contatos}" class="btn btn-outline-secondary"><i class="bi bi-x-lg me-1" aria-hidden="true"></i>Cancelar</a><button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-1" aria-hidden="true"></i>Guardar contacto</button></div>
+      </form>
+    </section>
+  </div>
 </main>
-
-<script th:src="@{/acessibilidade.js}"></script>
+</div>
+<div th:replace="~{fragments/layout :: scripts}"></div>
 </body>
 </html>
