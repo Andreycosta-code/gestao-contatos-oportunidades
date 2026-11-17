@@ -1,145 +1,152 @@
-# Gestão de Contactos e Oportunidades
+Gestão de Contactos e Oportunidades
+Aplicação web desenvolvida no âmbito de um projeto académico de Análise
+e Desenvolvimento de Sistemas, com o objetivo de apoiar a organização da
+atividade de um trabalhador independente da área da construção civil.
 
-## Sobre o projeto
+A solução permite centralizar contactos, pedidos de trabalho e respetivo
+acompanhamento, reduzindo a dispersão de informação que pode ocorrer
+quando os pedidos são recebidos através de chamadas, mensagens e
+contactos pessoais.
+Objetivos
+- Centralizar os contactos e as oportunidades de trabalho.
+- Acompanhar o estado, a prioridade e os prazos de cada oportunidade.
+- Registar e consultar o histórico de interações.
+- Consultar informação relevante para a gestão da atividade, incluindo
+  tempo estimado e valores a receber.
+- Disponibilizar uma interface responsiva e um modo de alto contraste.
+O projeto está alinhado com o ODS 8 --- Trabalho Digno e Crescimento
+Económico, em particular com a meta 8.3, através do apoio à
+organização e ao empreendedorismo de pequenos negócios.
+Funcionalidades
+- Autenticação de utilizador.
+- Painel principal com indicadores e informação resumida.
+- Registo, consulta, edição e eliminação segura de contactos.
+- Registo, consulta, edição e acompanhamento de oportunidades.
+- Associação de cada oportunidade a um contacto.
+- Gestão do estado e da prioridade das oportunidades.
+- Registo de prazo de resposta, tempo estimado e valor a receber.
+- Registo e consulta do histórico de interações (chamadas, mensagens e
+  reuniões).
+- Eliminação de interações.
+- Proteção do histórico: uma oportunidade com interações associadas
+  não deve ser eliminada.
+- Modo de alto contraste para melhorar a legibilidade.
+- Interface adaptável a computador, tablet e telemóvel.
+Âmbito do MVP: a aplicação não inclui integração automática com o
+WhatsApp, faturação, processamento de pagamentos, ligação bancária ou
+funcionalidades de contabilidade.
 
-Aplicação web desenvolvida como projeto académico de Análise e Desenvolvimento de Sistemas, com o objetivo de apoiar trabalhadores independentes da construção civil na organização de contactos e no acompanhamento de oportunidades de negócio.
-
-A solução procura centralizar informações de clientes, pedidos de serviço e respetivas interações, facilitando o acompanhamento das atividades profissionais.
-
-## Objetivos
-
-- Organizar os contactos de clientes, empreiteiros e empresas.
-- Registar e acompanhar oportunidades de negócio.
-- Controlar estados, prioridades e prazos.
-- Registar interações relacionadas com as oportunidades.
-- Consultar valores previstos a receber.
-- Melhorar a acessibilidade através de um modo de alto contraste.
-
-## Tecnologias utilizadas
-
+Tecnologias
 - Java 21
 - Spring Boot
-- Spring MVC
-- Spring Data JPA
+- Spring MVC e Thymeleaf
+- Spring Data JPA / Hibernate
 - Spring Security
-- Thymeleaf
-- Bootstrap 5
+- Bean Validation
 - PostgreSQL
+- Bootstrap 5.3
 - Maven
 - JUnit 5 e Mockito
-- JaCoCo
-- Git e GitHub Actions
-
-## Funcionalidades
-
-- Dashboard inicial com indicadores calculados a partir dos dados registados.
-- Menu lateral com navegação entre os módulos.
-- Gestão de contactos.
-- Registo e consulta de oportunidades.
-- Atualização de estados e prioridades.
-- Definição de prazos e valores.
-- Registo de interações.
-- Autenticação de utilizadores.
-- Modo de alto contraste com preferência guardada no navegador.
-- Interface responsiva com identidade visual CRM e ícones Bootstrap.
-
-## Arquitetura
-
-O projeto utiliza uma arquitetura monolítica organizada em camadas:
-
-- **Model:** representação das entidades e regras de validação.
-- **Repository:** acesso e persistência dos dados.
-- **Service:** implementação das regras de negócio.
-- **Controller:** gestão dos pedidos e navegação.
-- **Templates:** apresentação das páginas através do Thymeleaf.
-
-## Como executar o projeto
-
-### Pré-requisitos
-
+- JaCoCo para análise da cobertura de testes
+- GitHub Actions para integração contínua
+Arquitetura
+A aplicação segue uma arquitetura monolítica organizada por camadas:
+- Model: entidades e tipos de domínio.
+- Repository: acesso e persistência dos dados através do Spring
+  Data JPA.
+- Service: regras de negócio e validações.
+- Controller: tratamento dos pedidos HTTP e navegação.
+- Templates: páginas HTML renderizadas com Thymeleaf.
+Pré-requisitos
+Antes de executar o projeto, é necessário ter instalado:
 - Java 21
-- Maven
+- Maven 3.9 ou superior
 - Docker e Docker Compose
 - Git
-
-### 1. Clonar o repositório
-
-```bash
+Configuração e execução
+1. Clonar o repositório
 git clone https://github.com/Andreycosta-code/gestao-contatos-oportunidades.git
 cd gestao-contatos-oportunidades
-```
+2. Configurar as variáveis de ambiente
+Criar um ficheiro .env na raiz do projeto. Este ficheiro contém
+credenciais locais e não deve ser enviado para o Git.
 
-### 2. Configurar as variáveis de ambiente
-
-Criar um ficheiro `.env` na raiz do projeto:
-
-```env
-DB_PASSWORD=defina_uma_senha_segura
-```
-
-O ficheiro `.env` não deve ser enviado para o GitHub.
-
-### 3. Iniciar a base de dados
-
-```bash
+Exemplo de estrutura:
+DB_PASSWORD=colocar_uma_password_forte
+APP_USERNAME=eurico
+APP_PASSWORD=colocar_uma_password_forte_e_unica
+Utilizar palavras-passe fortes e diferentes para a base de dados e para
+a aplicação. Não partilhar nem publicar os valores reais.
+3. Iniciar a base de dados
+Na raiz do projeto, executar:
 docker compose up -d
-```
-
-### 4. Configurar as variáveis para o Maven
-
-No terminal Bash:
-
-```bash
+O serviço PostgreSQL é iniciado com a configuração definida em
+compose.yaml.
+4. Carregar as variáveis de ambiente
+Em Linux ou GitHub Codespaces, executar no mesmo terminal em que a
+aplicação será iniciada:
 set -a
 source .env
 set +a
-
 export DB_USERNAME=gestor
 export DB_URL=jdbc:postgresql://localhost:5432/gestao_contatos
-```
-
-### 5. Executar a aplicação
-
-```bash
-mvn spring-boot:run
-```
-
-A aplicação ficará disponível em:
-
-http://localhost:8080
-
-## Testes e qualidade
-
-O projeto utiliza JUnit 5 e Mockito para testes automatizados.
-
-Para executar os testes e gerar o relatório de cobertura:
-
-```bash
+Se o terminal ou a sessão do Codespaces for reiniciada, repetir este
+passo.
+5. Executar os testes
 mvn clean verify
-```
-
-O relatório JaCoCo pode ser consultado em:
-
-```text
+Este comando compila o projeto, executa os testes automatizados e,
+quando configurado, gera o relatório de cobertura JaCoCo em:
 target/site/jacoco/index.html
-```
+6. Iniciar a aplicação
+mvn spring-boot:run
+Abrir no navegador:
+http://localhost:8080/
+A aplicação solicita autenticação. Utilizar o nome de utilizador e a
+palavra-passe definidos em APP_USERNAME e APP_PASSWORD no ficheiro
+.env.
+Testes e integração contínua
+O projeto inclui testes automatizados com JUnit 5 e Mockito. O workflow
+de GitHub Actions executa a verificação Maven (mvn clean verify) em
+eventos de push e pull request configurados no repositório.
 
-Também foi configurado um pipeline de integração contínua com GitHub Actions, responsável por executar a compilação e os testes automaticamente.
-
-## Acessibilidade
-
-Foi implementado um modo de alto contraste, permitindo melhorar a visualização dos conteúdos através de cores contrastantes. A preferência selecionada é armazenada no navegador através do `localStorage`.
-
-## Âmbito do MVP
-
-Esta versão contempla as funcionalidades essenciais de gestão de contactos e oportunidades. Integrações automáticas com WhatsApp, faturação, pagamentos e notificações avançadas não fazem parte do âmbito atual.
-
-## Objetivo de Desenvolvimento Sustentável
-
-O projeto relaciona-se com o **ODS 8 — Trabalho Digno e Crescimento Económico**, especialmente com a meta 8.3, através da utilização de ferramentas digitais para apoiar a organização da atividade profissional e o empreendedorismo.
-
-## Autor
-
-Andrey Costa
-
-Projeto académico 
+Para consultar a cobertura de testes localmente, executar
+mvn clean verify e abrir o relatório JaCoCo indicado acima.
+Segurança e dados
+- As páginas da aplicação requerem autenticação.
+- As palavras-passe são tratadas com BCrypt.
+- As credenciais são fornecidas através de variáveis de ambiente.
+- O ficheiro .env está excluído do controlo de versões.
+- A eliminação de registos deve preservar a integridade das relações e
+  o histórico de interações.
+Não colocar credenciais, dados pessoais reais ou informação sensível no
+repositório.
+Estrutura geral do projeto
+src/
+├── main/
+│   ├── java/
+│   │   └── pt/gestaocontatos/
+│   │       ├── config/
+│   │       ├── controller/
+│   │       ├── model/
+│   │       ├── repository/
+│   │       └── service/
+│   └── resources/
+│       ├── static/
+│       ├── templates/
+│       └── application.properties
+└── test/
+    └── java/
+A estrutura concreta pode incluir subpacotes adicionais, conforme a
+evolução do projeto.
+Limitações e evolução futura
+Possíveis melhorias, fora do âmbito atual do MVP:
+- Integração com WhatsApp ou outros canais de comunicação.
+- Notificações automáticas de prazos e seguimentos.
+- Exportação de dados e relatórios.
+- Gestão de vários utilizadores e diferentes níveis de acesso.
+- Funcionalidades de faturação e acompanhamento de pagamentos.
+Estas possibilidades constituem trabalho futuro e não devem ser
+consideradas funcionalidades já implementadas.
+Estado do projeto
+Versão MVP desenvolvida para fins académicos, com foco na gestão de
+contactos e oportunidades de trabalho de um profissional independente.
