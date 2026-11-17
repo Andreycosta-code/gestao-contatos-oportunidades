@@ -1,4 +1,5 @@
 Gestão de Contactos e Oportunidades
+
 Aplicação web desenvolvida no âmbito de um projeto académico de Análise
 e Desenvolvimento de Sistemas, com o objetivo de apoiar a organização da
 atividade de um trabalhador independente da área da construção civil.
