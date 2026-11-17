@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import pt.gestaocontatos.model.Contato;
 import pt.gestaocontatos.repository.ContatoRepository;
+import pt.gestaocontatos.repository.OportunidadeRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,9 +15,12 @@ import java.util.Optional;
 public class ContatoService {
 
     private final ContatoRepository contatoRepository;
+    private final OportunidadeRepository oportunidadeRepository;
 
-    public ContatoService(ContatoRepository contatoRepository) {
+    public ContatoService(ContatoRepository contatoRepository,
+                          OportunidadeRepository oportunidadeRepository) {
         this.contatoRepository = contatoRepository;
+        this.oportunidadeRepository = oportunidadeRepository;
     }
 
     @Transactional
@@ -75,6 +79,12 @@ public class ContatoService {
         if (!contatoRepository.existsById(id)) {
             throw new IllegalArgumentException(
                 "Contato nao encontrado."
+            );
+        }
+
+        if (oportunidadeRepository.existsByContatoId(id)) {
+            throw new IllegalArgumentException(
+                "Nao e possivel eliminar este contacto porque existem oportunidades associadas."
             );
         }
 

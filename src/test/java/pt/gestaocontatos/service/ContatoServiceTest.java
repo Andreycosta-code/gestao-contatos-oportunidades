@@ -11,6 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import pt.gestaocontatos.model.Contato;
 import pt.gestaocontatos.model.TipoContacto;
 import pt.gestaocontatos.repository.ContatoRepository;
+import pt.gestaocontatos.repository.OportunidadeRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +24,9 @@ class ContatoServiceTest {
 
     @Mock
     private ContatoRepository contatoRepository;
+
+    @Mock
+    private OportunidadeRepository oportunidadeRepository;
 
     @InjectMocks
     private ContatoService contatoService;
@@ -164,6 +168,7 @@ class ContatoServiceTest {
     @Test
     void deveExcluirContatoExistente() {
         when(contatoRepository.existsById(1L)).thenReturn(true);
+        when(oportunidadeRepository.existsByContatoId(1L)).thenReturn(false);
 
         assertDoesNotThrow(() -> contatoService.excluir(1L));
 
@@ -181,4 +186,18 @@ class ContatoServiceTest {
 
         verify(contatoRepository, never()).deleteById(99L);
     }
+
+    @Test
+    void naoDeveExcluirContatoComOportunidadesAssociadas() {
+        when(contatoRepository.existsById(1L)).thenReturn(true);
+        when(oportunidadeRepository.existsByContatoId(1L)).thenReturn(true);
+
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> contatoService.excluir(1L)
+        );
+
+        verify(contatoRepository, never()).deleteById(1L);
+    }
+
 }

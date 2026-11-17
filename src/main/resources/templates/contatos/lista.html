@@ -12,7 +12,9 @@
     <a th:href="@{/contatos/novo}" class="btn btn-primary page-primary-action"><i class="bi bi-person-plus me-2" aria-hidden="true"></i>Novo contacto</a>
   </section>
   <div th:if="${param.sucesso}" class="alert alert-success alert-dismissible fade show" role="status">Contacto registado com sucesso!<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button></div>
-  <div th:if="${param.erro}" class="alert alert-danger" role="alert">Não foi possível concluir a operação.</div>
+  <div th:if="${param.atualizado}" class="alert alert-success" role="status">Contacto atualizado com sucesso.</div>
+  <div th:if="${param.excluido}" class="alert alert-success" role="status">Contacto eliminado com sucesso.</div>
+  <div th:if="${param.erro}" class="alert alert-danger" role="alert" th:text="${param.erro}">Não foi possível concluir a operação.</div>
   <section class="content-panel">
     <div class="content-panel-heading"><div><h3><i class="bi bi-people me-2" aria-hidden="true"></i>Lista de contactos</h3><p>Pesquise pelo nome para encontrar rapidamente um contacto.</p></div><span class="record-count" th:text="${#lists.size(contatos) + ' registo(s)'}">0 registos</span></div>
     <form th:action="@{/contatos}" method="get" class="search-form row g-2 align-items-end">
@@ -22,12 +24,21 @@
     <div th:if="${#lists.isEmpty(contatos)}" class="empty-state-page"><span class="empty-state-page-icon"><i class="bi bi-person-plus" aria-hidden="true"></i></span><h3>Nenhum contacto encontrado</h3><p>Adicione o primeiro contacto para começar a organizar a sua rede.</p><a th:href="@{/contatos/novo}" class="btn btn-primary">Adicionar contacto</a></div>
     <div th:unless="${#lists.isEmpty(contatos)}" class="table-responsive crm-table-wrap">
       <table class="table crm-table align-middle">
-        <thead><tr><th scope="col">Nome</th><th scope="col">Telefone</th><th scope="col">Email</th><th scope="col">Tipo de contacto</th></tr></thead>
+        <thead><tr><th scope="col">Nome</th><th scope="col">Telefone</th><th scope="col">Email</th><th scope="col">Tipo de contacto</th><th scope="col" class="text-end">Ações</th></tr></thead>
         <tbody><tr th:each="contato : ${contatos}">
           <td data-label="Nome"><span class="table-primary-text" th:text="${contato.nome}">Nome</span></td>
           <td data-label="Telefone"><span class="table-secondary-text" th:text="${contato.telefone}">Telefone</span></td>
           <td data-label="Email"><span class="table-secondary-text" th:text="${contato.email != null and !contato.email.isEmpty() ? contato.email : 'Não informado'}">Email</span></td>
           <td data-label="Tipo"><span class="type-badge" th:classappend="${'tipo-' + #strings.toLowerCase(contato.tipoContacto.name())}" th:text="${#strings.capitalize(#strings.toLowerCase(contato.tipoContacto.name()))}">Tipo</span></td>
+          <td data-label="Ações" class="text-end">
+            <div class="d-inline-flex gap-2">
+              <a th:href="@{/contatos/editar/{id}(id=${contato.id})}" class="btn btn-sm btn-outline-primary" th:aria-label="${'Editar contacto ' + contato.nome}" title="Editar"><i class="bi bi-pencil" aria-hidden="true"></i></a>
+              <form th:action="@{/contatos/excluir/{id}(id=${contato.id})}" method="post" onsubmit="return confirm('Tem a certeza de que pretende eliminar este contacto?');">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                <button type="submit" class="btn btn-sm btn-outline-danger" th:aria-label="${'Eliminar contacto ' + contato.nome}" title="Eliminar"><i class="bi bi-trash" aria-hidden="true"></i></button>
+              </form>
+            </div>
+          </td>
         </tr></tbody>
       </table>
     </div>

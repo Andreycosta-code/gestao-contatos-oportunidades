@@ -22,6 +22,8 @@ public interface OportunidadeRepository
 
     List<Oportunidade> findByContatoId(Long contatoId);
 
+    boolean existsByContatoId(Long contatoId);
+
     List<Oportunidade> findByDescricaoContainingIgnoreCase(
             String descricao);
 
