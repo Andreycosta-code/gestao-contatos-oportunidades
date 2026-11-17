@@ -11,4 +11,8 @@ import java.util.List;
 public interface InteracaoRepository extends JpaRepository<Interacao, Long> {
 
     List<Interacao> findByOportunidadeIdOrderByDataInteracaoDesc(Long oportunidadeId);
+
+    boolean existsByOportunidadeId(Long oportunidadeId);
+
+    java.util.Optional<Interacao> findByIdAndOportunidadeId(Long id, Long oportunidadeId);
 }

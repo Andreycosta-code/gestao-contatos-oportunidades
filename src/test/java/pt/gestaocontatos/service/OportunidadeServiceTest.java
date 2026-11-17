@@ -14,6 +14,7 @@ import pt.gestaocontatos.model.Oportunidade;
 import pt.gestaocontatos.model.Prioridade;
 import pt.gestaocontatos.repository.ContatoRepository;
 import pt.gestaocontatos.repository.OportunidadeRepository;
+import pt.gestaocontatos.repository.InteracaoRepository;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -30,6 +31,9 @@ class OportunidadeServiceTest {
 
     @Mock
     private ContatoRepository contatoRepository;
+
+    @Mock
+    private InteracaoRepository interacaoRepository;
 
     @InjectMocks
     private OportunidadeService oportunidadeService;
@@ -254,6 +258,8 @@ class OportunidadeServiceTest {
     void deveExcluirOportunidadeExistente() {
         when(oportunidadeRepository.existsById(1L))
                 .thenReturn(true);
+        when(interacaoRepository.existsByOportunidadeId(1L))
+                .thenReturn(false);
 
         assertDoesNotThrow(
                 () -> oportunidadeService.excluir(1L)
@@ -274,4 +280,15 @@ class OportunidadeServiceTest {
 
         verify(oportunidadeRepository, never()).deleteById(99L);
     }
+    @Test
+    void naoDeveExcluirOportunidadeComInteracoesRegistadas() {
+        when(oportunidadeRepository.existsById(1L)).thenReturn(true);
+        when(interacaoRepository.existsByOportunidadeId(1L)).thenReturn(true);
+
+        assertThrows(IllegalArgumentException.class,
+                () -> oportunidadeService.excluir(1L));
+
+        verify(oportunidadeRepository, never()).deleteById(1L);
+    }
+
 }

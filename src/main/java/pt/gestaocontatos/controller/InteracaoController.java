@@ -83,6 +83,20 @@ public class InteracaoController {
         }
     }
 
+    @PostMapping("/excluir/{oportunidadeId}/{interacaoId}")
+    public String excluir(
+            @PathVariable Long oportunidadeId,
+            @PathVariable Long interacaoId) {
+        try {
+            interacaoService.excluir(interacaoId, oportunidadeId);
+            return "redirect:/interacoes/oportunidade/"
+                    + oportunidadeId + "?eliminada";
+        } catch (IllegalArgumentException erro) {
+            return "redirect:/interacoes/oportunidade/"
+                    + oportunidadeId + "?erro";
+        }
+    }
+
     private void carregarDadosPagina(
             Long oportunidadeId,
             Model model) {

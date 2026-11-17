@@ -12,19 +12,23 @@ import pt.gestaocontatos.model.Oportunidade;
 import pt.gestaocontatos.model.Prioridade;
 import pt.gestaocontatos.repository.ContatoRepository;
 import pt.gestaocontatos.repository.OportunidadeRepository;
+import pt.gestaocontatos.repository.InteracaoRepository;
 
 @Service
 public class OportunidadeService {
 
     private final OportunidadeRepository oportunidadeRepository;
     private final ContatoRepository contatoRepository;
+    private final InteracaoRepository interacaoRepository;
 
     public OportunidadeService(
             OportunidadeRepository oportunidadeRepository,
-            ContatoRepository contatoRepository) {
+            ContatoRepository contatoRepository,
+            InteracaoRepository interacaoRepository) {
 
         this.oportunidadeRepository = oportunidadeRepository;
         this.contatoRepository = contatoRepository;
+        this.interacaoRepository = interacaoRepository;
     }
 
     @Transactional
@@ -106,6 +110,11 @@ public class OportunidadeService {
         if (!oportunidadeRepository.existsById(id)) {
             throw new IllegalArgumentException(
                     "Oportunidade não encontrada.");
+        }
+
+        if (interacaoRepository.existsByOportunidadeId(id)) {
+            throw new IllegalArgumentException(
+                    "Não é possível eliminar esta oportunidade porque tem interações registadas. Elimine primeiro as interações, se necessário.");
         }
 
         oportunidadeRepository.deleteById(id);

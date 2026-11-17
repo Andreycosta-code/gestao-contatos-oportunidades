@@ -61,13 +61,14 @@ public class InteracaoService {
     }
 
     @Transactional
-    public void excluir(Long id) {
+    public void excluir(Long id, Long oportunidadeId) {
 
-        if (!interacaoRepository.existsById(id)) {
-            throw new IllegalArgumentException(
-                    "Interação não encontrada.");
-        }
+        Interacao interacao = interacaoRepository
+                .findByIdAndOportunidadeId(id, oportunidadeId)
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Interação não encontrada nesta oportunidade."));
 
-        interacaoRepository.deleteById(id);
+        interacaoRepository.delete(interacao);
     }
+
 }

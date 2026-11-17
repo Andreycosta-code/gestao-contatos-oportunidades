@@ -131,6 +131,16 @@ public class OportunidadeController {
         }
     }
 
+    @PostMapping("/excluir/{id}")
+    public String excluir(@PathVariable Long id) {
+        try {
+            oportunidadeService.excluir(id);
+            return "redirect:/oportunidades?eliminada";
+        } catch (IllegalArgumentException erro) {
+            return "redirect:/oportunidades?erroExclusao";
+        }
+    }
+
     private void carregarDadosFormulario(Model model) {
 
         model.addAttribute(

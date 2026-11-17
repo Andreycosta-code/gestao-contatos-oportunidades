@@ -130,27 +130,23 @@ class InteracaoServiceTest {
     }
 
     @Test
-    void deveExcluirInteracaoExistente() {
-        when(interacaoRepository.existsById(1L))
-                .thenReturn(true);
+    void deveExcluirInteracaoAssociadaAUmaOportunidade() {
+        Interacao interacao = criarInteracao();
+        when(interacaoRepository.findByIdAndOportunidadeId(1L, 1L))
+                .thenReturn(Optional.of(interacao));
 
-        assertDoesNotThrow(
-                () -> interacaoService.excluir(1L)
-        );
-
-        verify(interacaoRepository).deleteById(1L);
+        assertDoesNotThrow(() -> interacaoService.excluir(1L, 1L));
+        verify(interacaoRepository).delete(interacao);
     }
 
     @Test
-    void naoDeveExcluirInteracaoInexistente() {
-        when(interacaoRepository.existsById(99L))
-                .thenReturn(false);
+    void naoDeveExcluirInteracaoDeOutraOportunidade() {
+        when(interacaoRepository.findByIdAndOportunidadeId(1L, 2L))
+                .thenReturn(Optional.empty());
 
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> interacaoService.excluir(99L)
-        );
-
-        verify(interacaoRepository, never()).deleteById(99L);
+        assertThrows(IllegalArgumentException.class,
+                () -> interacaoService.excluir(1L, 2L));
+        verify(interacaoRepository, never()).delete(any(Interacao.class));
     }
+
 }
