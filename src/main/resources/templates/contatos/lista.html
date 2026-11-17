@@ -8,15 +8,30 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
           rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/acessibilidade.css}">
 </head>
+
 <body class="bg-light">
 
 <header class="bg-dark text-white py-3">
-    <div class="container d-flex justify-content-between align-items-center">
+    <div class="container d-flex justify-content-between align-items-center flex-wrap gap-2">
+
         <h1 class="h4 mb-0">Gestão de Contactos e Oportunidades</h1>
-        <a th:href="@{/contatos/novo}" class="btn btn-primary">
-            Novo contacto
-        </a>
+
+        <div class="d-flex gap-2 flex-wrap">
+            <button type="button"
+                    id="botao-contraste"
+                    class="btn btn-warning"
+                    aria-pressed="false">
+                Ativar alto contraste
+            </button>
+
+            <a th:href="@{/contatos/novo}" class="btn btn-primary">
+                Novo contacto
+            </a>
+        </div>
+
     </div>
 </header>
 
@@ -38,41 +53,44 @@
     <div class="card shadow-sm">
         <div class="card-body">
 
-<form th:action="@{/contatos}" method="get"
-      class="row g-2 mb-4">
+            <form th:action="@{/contatos}" method="get"
+                  class="row g-2 mb-4">
 
-    <div class="col-md-9">
-        <label for="nome" class="form-label">
-            Pesquisar contacto pelo nome
-        </label>
+                <div class="col-md-9">
+                    <label for="nome" class="form-label">
+                        Pesquisar contacto pelo nome
+                    </label>
 
-        <input type="text"
-               id="nome"
-               name="nome"
-               th:value="${nomePesquisa}"
-               class="form-control"
-               placeholder="Digite o nome do contacto">
-    </div>
+                    <input type="text"
+                           id="nome"
+                           name="nome"
+                           th:value="${nomePesquisa}"
+                           class="form-control"
+                           placeholder="Digite o nome do contacto">
+                </div>
 
-    <div class="col-md-3 d-flex align-items-end gap-2">
-        <button type="submit" class="btn btn-primary">
-            Pesquisar
-        </button>
+                <div class="col-md-3 d-flex align-items-end gap-2">
+                    <button type="submit" class="btn btn-primary">
+                        Pesquisar
+                    </button>
 
-        <a th:href="@{/contatos}"
-           class="btn btn-outline-secondary">
-            Limpar
-        </a>
-    </div>
+                    <a th:href="@{/contatos}"
+                       class="btn btn-outline-secondary">
+                        Limpar
+                    </a>
+                </div>
 
-</form>
+            </form>
 
             <div th:if="${#lists.isEmpty(contatos)}"
                  class="text-center py-5">
+
                 <h3 class="h5">Nenhum contacto cadastrado</h3>
+
                 <p class="text-muted">
                     Comece adicionando o primeiro contacto.
                 </p>
+
                 <a th:href="@{/contatos/novo}"
                    class="btn btn-primary">
                     Cadastrar contacto
@@ -83,6 +101,7 @@
                  class="table-responsive">
 
                 <table class="table table-hover align-middle">
+
                     <thead class="table-dark">
                         <tr>
                             <th scope="col">Nome</th>
@@ -96,7 +115,9 @@
                         <tr th:each="contato : ${contatos}">
                             <td th:text="${contato.nome}"></td>
                             <td th:text="${contato.telefone}"></td>
+
                             <td th:text="${contato.email != null and !contato.email.isEmpty() ? contato.email : 'Não informado'}"></td>
+
                             <td>
                                 <span class="badge bg-secondary"
                                       th:text="${contato.tipoContacto}">
@@ -104,14 +125,16 @@
                             </td>
                         </tr>
                     </tbody>
-                </table>
 
+                </table>
             </div>
 
         </div>
     </div>
 
 </main>
+
+<script th:src="@{/acessibilidade.js}"></script>
 
 </body>
 </html>

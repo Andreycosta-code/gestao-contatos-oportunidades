@@ -1,0 +1,53 @@
+
+/* Modo de alto contraste */
+body.alto-contraste {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+}
+
+body.alto-contraste .container,
+body.alto-contraste .card,
+body.alto-contraste .modal,
+body.alto-contraste .table,
+body.alto-contraste .form-control,
+body.alto-contraste .form-select {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border-color: #ffff00 !important;
+}
+
+body.alto-contraste .table th,
+body.alto-contraste .table td {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border-color: #ffff00 !important;
+}
+
+body.alto-contraste a {
+    color: #00ffff !important;
+}
+
+body.alto-contraste button,
+body.alto-contraste .btn {
+    background-color: #000000 !important;
+    color: #ffff00 !important;
+    border: 2px solid #ffff00 !important;
+}
+
+body.alto-contraste input,
+body.alto-contraste select,
+body.alto-contraste textarea {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border: 2px solid #ffff00 !important;
+}
+
+body.alto-contraste input::placeholder,
+body.alto-contraste textarea::placeholder {
+    color: #cccccc !important;
+}
+
+body.alto-contraste :focus-visible {
+    outline: 3px solid #00ffff !important;
+    outline-offset: 3px;
+}
