@@ -1,3 +1,4 @@
+
 package pt.gestaocontatos.config;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -39,9 +40,21 @@ public class SecurityConfig {
 
         http
             .authorizeHttpRequests(auth -> auth
+                .requestMatchers(
+                    "/login",
+                    "/crm.css",
+                    "/css/**",
+                    "/js/**",
+                    "/images/**",
+                    "/webjars/**",
+                    "/favicon.ico"
+                ).permitAll()
                 .anyRequest().authenticated()
             )
-            .formLogin(form -> form.permitAll())
+            .formLogin(form -> form
+                .loginPage("/login")
+                .permitAll()
+            )
             .logout(logout -> logout
                 .logoutSuccessUrl("/login?logout")
             );
