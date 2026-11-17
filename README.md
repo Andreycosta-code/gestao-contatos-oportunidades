@@ -32,6 +32,8 @@ A solução procura centralizar informações de clientes, pedidos de serviço e
 
 ## Funcionalidades
 
+- Dashboard inicial com indicadores calculados a partir dos dados registados.
+- Menu lateral com navegação entre os módulos.
 - Gestão de contactos.
 - Registo e consulta de oportunidades.
 - Atualização de estados e prioridades.
@@ -39,6 +41,7 @@ A solução procura centralizar informações de clientes, pedidos de serviço e
 - Registo de interações.
 - Autenticação de utilizadores.
 - Modo de alto contraste com preferência guardada no navegador.
+- Interface responsiva com identidade visual CRM e ícones Bootstrap.
 
 ## Arquitetura
 

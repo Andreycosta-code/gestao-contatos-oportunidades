@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-PT" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Painel principal')}"></head>
+<body class="crm-body">
+<a class="skip-link" href="#conteudo">Saltar para o conteúdo</a>
+<div th:replace="~{fragments/layout :: sidebar('dashboard')}"></div>
+<div class="crm-main">
+<header th:replace="~{fragments/layout :: topbar('Painel principal')}"></header>
+<main id="conteudo" class="crm-content">
+<section class="dashboard-welcome mb-4">
+  <div><span class="welcome-kicker">VISÃO GERAL</span><h2>Bem-vindo à sua área de gestão</h2><p class="mb-0">Acompanhe os seus contactos e oportunidades num só lugar.</p></div>
+  <div class="welcome-actions">
+    <a th:href="@{/contatos/novo}" class="btn btn-light"><i class="bi bi-person-plus me-1" aria-hidden="true"></i>Novo contacto</a>
+    <a th:href="@{/oportunidades/nova}" class="btn btn-primary"><i class="bi bi-plus-lg me-1" aria-hidden="true"></i>Nova oportunidade</a>
+  </div>
+</section>
+<section aria-labelledby="indicadoresTitulo">
+  <div class="section-heading"><div><h2 id="indicadoresTitulo">Resumo da atividade</h2><p>Indicadores calculados a partir dos registos da aplicação.</p></div><span class="section-total" th:text="${resumo.totalOportunidades + ' oportunidades registadas'}">0 oportunidades registadas</span></div>
+  <div class="row g-3 dashboard-cards">
+    <div class="col-12 col-sm-6 col-xl-3"><article class="metric-card"><div class="metric-icon metric-blue"><i class="bi bi-people-fill" aria-hidden="true"></i></div><div class="metric-label">Total de contactos</div><div class="metric-value" th:text="${resumo.totalContatos}">0</div><a th:href="@{/contatos}" class="metric-link">Consultar contactos <i class="bi bi-arrow-right" aria-hidden="true"></i></a></article></div>
+    <div class="col-12 col-sm-6 col-xl-3"><article class="metric-card"><div class="metric-icon metric-violet"><i class="bi bi-kanban-fill" aria-hidden="true"></i></div><div class="metric-label">Recebidas</div><div class="metric-value" th:text="${resumo.oportunidadesRecebidas}">0</div><a th:href="@{/oportunidades}" class="metric-link">Consultar oportunidades <i class="bi bi-arrow-right" aria-hidden="true"></i></a></article></div>
+    <div class="col-12 col-sm-6 col-xl-3"><article class="metric-card"><div class="metric-icon metric-amber"><i class="bi bi-hourglass-split" aria-hidden="true"></i></div><div class="metric-label">Em análise</div><div class="metric-value" th:text="${resumo.oportunidadesEmAnalise}">0</div><span class="metric-footnote">Pedidos em avaliação</span></article></div>
+    <div class="col-12 col-sm-6 col-xl-3"><article class="metric-card"><div class="metric-icon metric-green"><i class="bi bi-check2-circle" aria-hidden="true"></i></div><div class="metric-label">Concluídas</div><div class="metric-value" th:text="${resumo.oportunidadesConcluidas}">0</div><span class="metric-footnote">Trabalhos concluídos</span></article></div>
+  </div>
+</section>
+<section class="row g-3 mt-1">
+  <div class="col-12 col-xl-5"><article class="summary-panel h-100">
+    <div class="panel-heading"><div><h2>Valor previsto a receber</h2><p>Soma dos valores registados nas oportunidades.</p></div><span class="panel-icon"><i class="bi bi-wallet2" aria-hidden="true"></i></span></div>
+    <div class="forecast-value" th:text="${'€ ' + #numbers.formatDecimal(resumo.valorPrevistoTotal, 1, 2)}">€ 0,00</div>
+    <div class="forecast-note"><i class="bi bi-info-circle me-1" aria-hidden="true"></i>Valor indicativo com base nos registos existentes.</div>
+    <a th:href="@{/oportunidades}" class="btn btn-outline-primary mt-3">Ver oportunidades</a>
+  </article></div>
+  <div class="col-12 col-xl-7"><article class="summary-panel h-100">
+    <div class="panel-heading"><div><h2>Oportunidades recentes</h2><p>Os últimos pedidos registados.</p></div><a th:href="@{/oportunidades}" class="panel-action">Ver todas</a></div>
+    <div th:if="${#lists.isEmpty(resumo.oportunidadesRecentes)}" class="empty-state"><i class="bi bi-inbox" aria-hidden="true"></i><strong>Ainda não existem oportunidades</strong><span>Quando registar um pedido, ele aparecerá aqui.</span></div>
+    <div th:unless="${#lists.isEmpty(resumo.oportunidadesRecentes)}" class="recent-list">
+      <div class="recent-item" th:each="oportunidade : ${resumo.oportunidadesRecentes}">
+        <div class="recent-main"><strong th:text="${oportunidade.descricao}">Descrição</strong><span th:text="${oportunidade.contato.nome}">Contacto</span></div>
+        <span class="status-badge" th:classappend="${'estado-' + #strings.toLowerCase(oportunidade.estado.name())}" th:text="${#strings.replace(oportunidade.estado.name(), '_', ' ')}">Estado</span>
+      </div>
+    </div>
+  </article></div>
+</section>
+<section class="quick-links mt-4" aria-label="Acesso rápido">
+  <a th:href="@{/contatos}" class="quick-link"><span class="quick-link-icon"><i class="bi bi-person-lines-fill" aria-hidden="true"></i></span><span><strong>Gerir contactos</strong><small>Consultar e organizar a sua rede</small></span><i class="bi bi-chevron-right ms-auto" aria-hidden="true"></i></a>
+  <a th:href="@{/oportunidades}" class="quick-link"><span class="quick-link-icon"><i class="bi bi-clipboard-data" aria-hidden="true"></i></span><span><strong>Acompanhar oportunidades</strong><small>Consultar estados, prazos e valores</small></span><i class="bi bi-chevron-right ms-auto" aria-hidden="true"></i></a>
+</section>
+</main>
+</div>
+<div th:replace="~{fragments/layout :: scripts}"></div>
+</body>
+</html>

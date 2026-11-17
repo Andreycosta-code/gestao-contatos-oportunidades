@@ -51,3 +51,95 @@ body.alto-contraste :focus-visible {
     outline: 3px solid #00ffff !important;
     outline-offset: 3px;
 }
+
+
+/* Compatibilidade do modo de alto contraste com o novo dashboard */
+body.alto-contraste.crm-body,
+body.alto-contraste .crm-main {
+    background: #000000 !important;
+    color: #ffffff !important;
+}
+body.alto-contraste .crm-sidebar {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border-right: 2px solid #ffff00 !important;
+}
+body.alto-contraste .crm-brand,
+body.alto-contraste .crm-brand strong,
+body.alto-contraste .crm-nav-link,
+body.alto-contraste .crm-sidebar-note,
+body.alto-contraste .crm-topbar-title,
+body.alto-contraste .section-heading h2,
+body.alto-contraste .panel-heading h2,
+body.alto-contraste .metric-value,
+body.alto-contraste .forecast-value,
+body.alto-contraste .recent-main strong,
+body.alto-contraste .quick-link strong {
+    color: #ffffff !important;
+}
+body.alto-contraste .crm-nav-link.active,
+body.alto-contraste .crm-nav-link:hover {
+    background: #000000 !important;
+    color: #ffff00 !important;
+    outline: 2px solid #ffff00;
+}
+body.alto-contraste .crm-topbar,
+body.alto-contraste .metric-card,
+body.alto-contraste .summary-panel,
+body.alto-contraste .quick-link {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border: 2px solid #ffff00 !important;
+}
+body.alto-contraste .dashboard-welcome {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border: 2px solid #ffff00 !important;
+}
+body.alto-contraste .dashboard-welcome p,
+body.alto-contraste .welcome-kicker,
+body.alto-contraste .section-heading p,
+body.alto-contraste .panel-heading p,
+body.alto-contraste .metric-label,
+body.alto-contraste .metric-footnote,
+body.alto-contraste .recent-main span,
+body.alto-contraste .quick-link small,
+body.alto-contraste .forecast-note {
+    color: #ffffff !important;
+}
+body.alto-contraste .metric-icon,
+body.alto-contraste .panel-icon,
+body.alto-contraste .quick-link-icon {
+    background: #000000 !important;
+    color: #ffff00 !important;
+    border: 1px solid #ffff00 !important;
+}
+body.alto-contraste .metric-link,
+body.alto-contraste .panel-action,
+body.alto-contraste .quick-link > i {
+    color: #00ffff !important;
+}
+body.alto-contraste .status-badge {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border: 1px solid #ffff00 !important;
+}
+body.alto-contraste .crm-contrast-button,
+body.alto-contraste .crm-menu-toggle {
+    background: #000000 !important;
+    color: #ffff00 !important;
+    border: 2px solid #ffff00 !important;
+}
+body.alto-contraste .welcome-actions .btn-light,
+body.alto-contraste .welcome-actions .btn-primary {
+    background: #000000 !important;
+    color: #ffff00 !important;
+    border: 2px solid #ffff00 !important;
+}
+body.alto-contraste .recent-item,
+body.alto-contraste .quick-link,
+body.alto-contraste .crm-brand {
+    border-color: #ffff00 !important;
+}
+
+body.alto-contraste .section-total { color: #ffffff !important; }
