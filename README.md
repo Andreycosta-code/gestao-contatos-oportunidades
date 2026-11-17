@@ -1,5 +1,13 @@
 Gestão de Contactos e Oportunidades
 
+🌐 Aplicação online
+
+A aplicação está disponível publicamente através do seguinte endereço:
+
+[Aceder à aplicação — Gestão de Contactos e Oportunidades](https://gestao-contatos-oportunidades.onrender.com/)
+
+Para aceder, utilize as credenciais de demonstração fornecidas pelo autor do projeto.
+
 Aplicação web desenvolvida no âmbito de um projeto académico de Análise
 e Desenvolvimento de Sistemas, com o objetivo de apoiar a organização da
 atividade de um trabalhador independente da área da construção civil.
